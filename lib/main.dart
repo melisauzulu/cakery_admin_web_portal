@@ -8,13 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // deneme
-
-
-  //deneme -selin
-
-  //deneme 2 -selin
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,6 +16,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
   }
