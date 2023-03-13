@@ -1,3 +1,4 @@
+import 'package:cakery_admin_web_portal/authentication/login_screen.dart';
 import 'package:cakery_admin_web_portal/main_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
