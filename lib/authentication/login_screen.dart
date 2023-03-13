@@ -7,7 +7,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
+// primary -> background color değişimi
 
 
 class _LoginScreenState extends State<LoginScreen> {

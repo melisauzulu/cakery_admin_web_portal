@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(40),
-                    primary: Colors.pink.shade900,
+                    backgroundColor: Colors.pink.shade900,
                   ),
                   onPressed: () {
 
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(40),
-                    primary: Colors.pink.shade700,
+                    backgroundColor: Colors.pink.shade700,
                   ),
                   onPressed: () {
 
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(40),
-                    primary: Colors.pink.shade700,
+                    backgroundColor: Colors.pink.shade700,
                   ),
                   onPressed: () {
 
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(40),
-                    primary: Colors.pink.shade900,
+                    backgroundColor: Colors.pink.shade900,
                   ),
                   onPressed: () {
 
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(40),
-                primary: Colors.pink.shade200,
+                backgroundColor: Colors.pink.shade200,
               ),
               onPressed: () {
 
