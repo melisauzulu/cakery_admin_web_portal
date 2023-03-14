@@ -1,3 +1,6 @@
+import 'package:cakery_admin_web_portal/main_screens/home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,6 +17,88 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String adminEmail = "";
   String adminPassword = "";
+
+  allowAdminToLogin() async
+  {
+    //we call this method when admin clicks on login button
+
+    SnackBar snackBar = const SnackBar(
+      content: Text(
+        "Checking Credientials, Please Wait..." ,
+        style: TextStyle (
+          fontSize: 36,
+          color: Colors.black,
+        ),
+      ),
+      backgroundColor: Colors.pinkAccent,
+      duration: Duration(seconds: 6),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    //checks if the email and password are correct via authentication
+    User? currentAdmin;
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: adminEmail,
+        password: adminPassword,
+    ).then((fAuth)
+    {
+      //in case of success
+      //get that admin and assign it to the current admin
+      currentAdmin = fAuth.user;
+    }).catchError((onError)
+    {
+      //in case of error
+      //display error message
+      final snackBar = SnackBar(
+          content: Text(
+            "Error Occured: " + onError.toString(),
+            style: const TextStyle (
+              fontSize: 36,
+              color: Colors.black,
+            ),
+          ),
+        backgroundColor: Colors.pinkAccent,
+        duration: const Duration(seconds: 5),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+
+    //if admin is authenticated successfully
+    if(currentAdmin != null) {
+      //check if that admin record also exists in the admins collection in firestore database
+      await FirebaseFirestore.instance
+          .collection("admins")
+          .doc(currentAdmin!.uid)
+          .get().then((snap)
+      {
+        if(snap.exists)
+        //if admin exists in firestore
+        {
+          //allow admin to home screen
+          Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
+          
+        }
+        else
+        //if record does not exists
+        {
+          SnackBar snackBar = const SnackBar(
+            content: Text(
+              "No Admin Record Found" ,
+              style: TextStyle (
+                fontSize: 36,
+                color: Colors.black,
+              ),
+            ),
+            backgroundColor: Colors.pinkAccent,
+            duration: Duration(seconds: 6),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        }
+      });
+    }
+
+  }
 
   @override
   Widget build(BuildContext context)
@@ -103,7 +188,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   //login button
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()
+                    {
+
+                      allowAdminToLogin();
 
                     },
                     style: ButtonStyle(
