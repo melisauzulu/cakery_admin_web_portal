@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:cakery_admin_web_portal/authentication/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 
 
 
@@ -29,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
   {
     return DateFormat("dd MMMM, yyyy").format(date);
     //date mounth year format
-    
+
   }
 
   getCurrentLiveTime() {
@@ -48,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-   //initState is a method to called whenever user get to the home screen
+    //initState is a method to called whenever user get to the home screen
     super.initState();
 
     //time
@@ -96,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen>
             color: Colors.white,
 
 
-        ),
+          ),
         ),
         centerTitle: true,
       ),
@@ -229,6 +232,9 @@ class _HomeScreenState extends State<HomeScreen>
                 backgroundColor: Colors.pink.shade200,
               ),
               onPressed: () {
+
+                FirebaseAuth.instance.signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (c)=> const LoginScreen()));
 
               },
             ),

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <!--
@@ -54,31 +55,34 @@
         }
       });
     });
+
+
   </script>
 
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="main.dart.js" type="application/javascript"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"> </script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"> </script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"> </script>
-  <script scr="main.dart.js" type="application/javascript"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"> </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
 
   <script>
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyCgYevEBf92UoIqKIEIQhQuF0ZI7Q-arHc",
-      authDomain: "cakery-app.firebaseapp.com",
-      projectId: "cakery-app",
-      storageBucket: "cakery-app.appspot.com",
-      messagingSenderId: "239201472285",
-      appId: "1:239201472285:web:821fb22d72070275ad1bf4"
-    };
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgYevEBf92UoIqKIEIQhQuF0ZI7Q-arHc",
+    authDomain: "cakery-app.firebaseapp.com",
+    projectId: "cakery-app",
+    storageBucket: "cakery-app.appspot.com",
+    messagingSenderId: "239201472285",
+    appId: "1:239201472285:web:fd115ea7571aa9d8ad1bf4"
+  };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
+
 
 </body>
 </html>
