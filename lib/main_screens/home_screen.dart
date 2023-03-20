@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cakery_admin_web_portal/authentication/login_screen.dart';
+import 'package:cakery_admin_web_portal/users/all_verified_users_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -129,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ElevatedButton.icon(
                   icon: const Icon(Icons.person_add, color: Colors.white,),
                   label: Text(
-                    "Activate User".toUpperCase() + "\n" + "Accounts".toUpperCase(),
+                    "All Activated User".toUpperCase() + "\n" + "Accounts".toUpperCase(),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -141,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen>
                     backgroundColor: Colors.pink.shade900,
                   ),
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const AllVerifiedUsersScreen()));
 
                   },
                 ),
@@ -150,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ElevatedButton.icon(
                   icon: const Icon(Icons.block_flipped, color: Colors.white,),
                   label: Text(
-                    "Block User".toUpperCase() + "\n"+ "Accounts".toUpperCase(),
+                    "All Blocked User".toUpperCase() + "\n"+ "Accounts".toUpperCase(),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -176,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ElevatedButton.icon(
                   icon: const Icon(Icons.person_add, color: Colors.white,),
                   label: Text(
-                    "Activate Seller".toUpperCase() + "\n" + "Accounts".toUpperCase(),
+                    "All Activate Seller".toUpperCase() + "\n" + "Accounts".toUpperCase(),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -197,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ElevatedButton.icon(
                   icon: const Icon(Icons.block_flipped, color: Colors.white,),
                   label: Text(
-                    "Block Seller".toUpperCase() + "\n"+ "Accounts".toUpperCase(),
+                    "All Blocked Seller".toUpperCase() + "\n"+ "Accounts".toUpperCase(),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
