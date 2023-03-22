@@ -1,3 +1,4 @@
+import 'package:cakery_admin_web_portal/main_screens/home_screen.dart';
 import 'package:cakery_admin_web_portal/widgets/simple_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,81 @@ class AllVerifiedUsersScreen extends StatefulWidget {
 class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
 
   QuerySnapshot? allUsers;
+
+  displayDialogBoxForBlockingAccount(userDocumentID){
+
+    return showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: const Text(
+            "Block Account",
+            style: TextStyle(
+              fontSize: 25,
+              letterSpacing: 2,
+              fontWeight: FontWeight.bold,
+
+            ),
+            ),
+            content: const Text(
+              "Do you want to block  this account ?",
+              style: TextStyle(
+                fontSize: 18,
+                letterSpacing: 2,
+
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: (){
+                  Navigator.pop(context);
+
+                  },
+
+                child: const Text("No"),
+
+              ),
+
+              ElevatedButton(
+                onPressed: (){
+                  Map<String, dynamic> userDataMap = {
+                    // so start us for the blocked user will be changed to not approved
+                    // not approved means that is blocked
+                    "status": "not approved",
+                  };
+                  FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(userDocumentID)
+                      .update(userDataMap)
+                      .then((value){
+
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
+
+                        SnackBar snackBar = const SnackBar(
+                          content: Text(
+                            "Blocked Successfully ! " ,
+                            style: TextStyle (
+                              fontSize: 36,
+                              color: Colors.black,
+                        ),
+                      ),
+                          backgroundColor: Colors.pinkAccent,
+                          duration: Duration(seconds: 2),
+                    );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+                  });
+                },
+                child: const Text("Yes"),
+              ),
+            ],
+
+          );
+        }
+
+    );
+  }
 
   @override
   void initState() {
@@ -101,6 +177,8 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                       ),
                       onPressed: ()
                       {
+
+                        displayDialogBoxForBlockingAccount(allUsers!.docs[i].id);
 
                       },
                     ),
