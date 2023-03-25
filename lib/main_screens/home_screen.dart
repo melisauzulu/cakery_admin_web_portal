@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:cakery_admin_web_portal/authentication/login_screen.dart';
+import 'package:cakery_admin_web_portal/sellers/all_blocked_sellers_screen.dart';
+import 'package:cakery_admin_web_portal/sellers/all_verified_sellers_screen.dart';
+import 'package:cakery_admin_web_portal/users/all_blocked_users_screen.dart';
 import 'package:cakery_admin_web_portal/users/all_verified_users_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -165,6 +168,9 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   onPressed: () {
 
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const AllBlockedUsersScreen()));
+
+
                   },
                 ),
               ],
@@ -190,6 +196,8 @@ class _HomeScreenState extends State<HomeScreen>
                     backgroundColor: Colors.pink.shade700,
                   ),
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const AllVerifiedSellersScreen()));
+
 
                   },
                 ),
@@ -211,6 +219,8 @@ class _HomeScreenState extends State<HomeScreen>
                     backgroundColor: Colors.pink.shade900,
                   ),
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const AllBlockedSellersScreen()));
+
 
                   },
                 ),

@@ -3,126 +3,123 @@ import 'package:cakery_admin_web_portal/widgets/simple_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AllVerifiedUsersScreen extends StatefulWidget {
-  const AllVerifiedUsersScreen({Key? key}) : super(key: key);
+
+
+class AllBlockedUsersScreen extends StatefulWidget
+{
+  const AllBlockedUsersScreen({Key? key}) : super(key: key);
 
   @override
-  State<AllVerifiedUsersScreen> createState() => _AllVerifiedUsersScreenState();
+  State<AllBlockedUsersScreen> createState() => _AllBlockedUsersScreenState();
 }
 
 
 
-class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
 
+class _AllBlockedUsersScreenState extends State<AllBlockedUsersScreen>
+{
   QuerySnapshot? allUsers;
 
-  displayDialogBoxForBlockingAccount(userDocumentID){
-
+  displayDialogBoxForActivatingAccount(userDocumentID)
+  {
     return showDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context)
+        {
           return AlertDialog(
             title: const Text(
-            "Block Account",
-            style: TextStyle(
-              fontSize: 25,
-              letterSpacing: 2,
-              fontWeight: FontWeight.bold,
-
-            ),
+              "Activate Account",
+              style: TextStyle(
+                fontSize: 25,
+                letterSpacing: 2,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             content: const Text(
-              "Do you want to block this account ?",
+              "Do you want to activate this account ?",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 letterSpacing: 2,
-
               ),
             ),
             actions: [
               ElevatedButton(
-                onPressed: (){
+                onPressed: ()
+                {
                   Navigator.pop(context);
-
-                  },
-
+                },
                 child: const Text("No"),
-
               ),
-
               ElevatedButton(
-                onPressed: (){
-                  Map<String, dynamic> userDataMap = {
-                    // so start us for the blocked user will be changed to not approved
-                    // not approved means that is blocked
-                    "status": "not approved",
+                onPressed: ()
+                {
+                  Map<String, dynamic> userDataMap =
+                  {
+                    "status": "approved",
                   };
+
                   FirebaseFirestore.instance
                       .collection("users")
                       .doc(userDocumentID)
                       .update(userDataMap)
-                      .then((value){
+                      .then((value)
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
 
-                        Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
-
-                        SnackBar snackBar = const SnackBar(
-                          content: Text(
-                            "Blocked Successfully ! " ,
-                            style: TextStyle (
-                              fontSize: 36,
-                              color: Colors.black,
+                    SnackBar snackBar = const SnackBar(
+                      content: Text(
+                        "Activated Successfully.",
+                        style: TextStyle(
+                          fontSize: 36,
+                          color: Colors.black,
                         ),
                       ),
-                          backgroundColor: Colors.pinkAccent,
-                          duration: Duration(seconds: 2),
+                      backgroundColor: Colors.pink,
+                      duration: Duration(seconds: 2),
                     );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
                 },
                 child: const Text("Yes"),
               ),
             ],
-
           );
         }
-
     );
   }
 
   @override
   void initState() {
     super.initState();
-    
+
     FirebaseFirestore.instance
         .collection("users")
-        .where("status", isEqualTo: "approved" )
-        .get()
-        .then((allVerifiedUsers){
-
-          setState(() {
-            allUsers= allVerifiedUsers;
-          });
+        .where("status", isEqualTo: "not approved")
+        .get().then((allVerifiedUsers)
+    {
+      setState(() {
+        allUsers = allVerifiedUsers;
+      });
     });
-
   }
 
   @override
-  Widget build(BuildContext context) {
-
-    Widget displayVerifiedUsersDesign(){
-      if(allUsers != null){
+  Widget build(BuildContext context)
+  {
+    Widget displayNonVerifiedUsersDesign()
+    {
+      if(allUsers != null)
+      {
         return ListView.builder(
-          // bu paddingi kaldırabiliriz ama şu anlık sorun olmadığı için kalsın
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
           itemCount: allUsers!.docs.length,
-          itemBuilder: (context, i){
+          itemBuilder: (context, i)
+          {
             return Card(
-              // kartlar arasındaki boşluk için
               elevation: 10,
               child: Column(
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ListTile(
@@ -143,7 +140,7 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.email, color: Colors.black,),
+                          const Icon(Icons.email_sharp, color: Colors.black,),
                           const SizedBox(width: 20,),
                           Text(
                             allUsers!.docs[i].get("email"),
@@ -158,17 +155,17 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.green,
                       ),
                       icon: const Icon(
                         Icons.person_pin_sharp,
                         color: Colors.white,
                       ),
                       label: Text(
-                        "Block this Account".toUpperCase(),
+                        "Activate this Account".toUpperCase(),
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
@@ -177,20 +174,18 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                       ),
                       onPressed: ()
                       {
-
-                        displayDialogBoxForBlockingAccount(allUsers!.docs[i].id);
-
+                        displayDialogBoxForActivatingAccount(allUsers!.docs[i].id);
                       },
                     ),
                   ),
                 ],
               ),
             );
-            },
+          },
         );
       }
-      else {
-
+      else
+      {
         return const Center(
           child: Text(
             "No Record Found.",
@@ -201,12 +196,13 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
         );
       }
     }
+
     return Scaffold(
-      appBar: SimpleAppBar(title: "All Verified Users Accounts",),
+      appBar: SimpleAppBar(title: "All Blocked Users Accounts",),
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * .5,
-          child: displayVerifiedUsersDesign(),
+          child: displayNonVerifiedUsersDesign(),
         ),
       ),
     );

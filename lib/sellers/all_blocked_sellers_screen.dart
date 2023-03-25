@@ -3,36 +3,36 @@ import 'package:cakery_admin_web_portal/widgets/simple_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AllVerifiedUsersScreen extends StatefulWidget {
-  const AllVerifiedUsersScreen({Key? key}) : super(key: key);
+class AllBlockedSellersScreen extends StatefulWidget {
+  const AllBlockedSellersScreen({Key? key}) : super(key: key);
 
   @override
-  State<AllVerifiedUsersScreen> createState() => _AllVerifiedUsersScreenState();
+  State<AllBlockedSellersScreen> createState() => _AllBlockedSellersScreenState();
 }
 
 
 
-class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
+class _AllBlockedSellersScreenState extends State<AllBlockedSellersScreen> {
 
-  QuerySnapshot? allUsers;
+  QuerySnapshot? allSellers;
 
-  displayDialogBoxForBlockingAccount(userDocumentID){
+  displayDialogBoxForActivatingAccount(userDocumentID){
 
     return showDialog(
         context: context,
         builder: (BuildContext context){
           return AlertDialog(
             title: const Text(
-            "Block Account",
-            style: TextStyle(
-              fontSize: 25,
-              letterSpacing: 2,
-              fontWeight: FontWeight.bold,
+              "Activate Account",
+              style: TextStyle(
+                fontSize: 25,
+                letterSpacing: 2,
+                fontWeight: FontWeight.bold,
 
-            ),
+              ),
             ),
             content: const Text(
-              "Do you want to block this account ?",
+              "Do you want to activate this account ?",
               style: TextStyle(
                 fontSize: 18,
                 letterSpacing: 2,
@@ -44,7 +44,7 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                 onPressed: (){
                   Navigator.pop(context);
 
-                  },
+                },
 
                 child: const Text("No"),
 
@@ -55,28 +55,28 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                   Map<String, dynamic> userDataMap = {
                     // so start us for the blocked user will be changed to not approved
                     // not approved means that is blocked
-                    "status": "not approved",
+                    "status": "approved",
                   };
                   FirebaseFirestore.instance
-                      .collection("users")
+                      .collection("sellers")
                       .doc(userDocumentID)
                       .update(userDataMap)
                       .then((value){
 
-                        Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
 
-                        SnackBar snackBar = const SnackBar(
-                          content: Text(
-                            "Blocked Successfully ! " ,
-                            style: TextStyle (
-                              fontSize: 36,
-                              color: Colors.black,
+                    SnackBar snackBar = const SnackBar(
+                      content: Text(
+                        "Activated Successfully ! " ,
+                        style: TextStyle (
+                          fontSize: 36,
+                          color: Colors.black,
                         ),
                       ),
-                          backgroundColor: Colors.pinkAccent,
-                          duration: Duration(seconds: 2),
+                      backgroundColor: Colors.pinkAccent,
+                      duration: Duration(seconds: 2),
                     );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
 
                   });
@@ -94,16 +94,16 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     FirebaseFirestore.instance
-        .collection("users")
-        .where("status", isEqualTo: "approved" )
+        .collection("sellers")
+        .where("status", isEqualTo: "not approved" )
         .get()
         .then((allVerifiedUsers){
 
-          setState(() {
-            allUsers= allVerifiedUsers;
-          });
+      setState(() {
+        allSellers= allVerifiedUsers;
+      });
     });
 
   }
@@ -111,12 +111,12 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
   @override
   Widget build(BuildContext context) {
 
-    Widget displayVerifiedUsersDesign(){
-      if(allUsers != null){
+    Widget displayBlockedUsersDesign(){
+      if(allSellers != null){
         return ListView.builder(
           // bu paddingi kaldırabiliriz ama şu anlık sorun olmadığı için kalsın
           padding: const EdgeInsets.all(10.0),
-          itemCount: allUsers!.docs.length,
+          itemCount: allSellers!.docs.length,
           itemBuilder: (context, i){
             return Card(
               // kartlar arasındaki boşluk için
@@ -132,13 +132,13 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: NetworkImage(allUsers!.docs[i].get("photoUrl")),
+                            image: NetworkImage(allSellers!.docs[i].get("sellerAvatarUrl")),
                             fit: BoxFit.fill,
                           ),
                         ),
                       ),
                       title: Text(
-                        allUsers!.docs[i].get("name"),
+                        allSellers!.docs[i].get("sellerName"),
                       ),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -146,7 +146,7 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                           const Icon(Icons.email, color: Colors.black,),
                           const SizedBox(width: 20,),
                           Text(
-                            allUsers!.docs[i].get("email"),
+                            allSellers!.docs[i].get("sellerEmail"),
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -161,14 +161,14 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                     padding: const EdgeInsets.all(15.0),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.green,
                       ),
                       icon: const Icon(
                         Icons.person_pin_sharp,
                         color: Colors.white,
                       ),
                       label: Text(
-                        "Block this Account".toUpperCase(),
+                        "Activate this Account".toUpperCase(),
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
@@ -178,7 +178,7 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                       onPressed: ()
                       {
 
-                        displayDialogBoxForBlockingAccount(allUsers!.docs[i].id);
+                        displayDialogBoxForActivatingAccount(allSellers!.docs[i].id);
 
                       },
                     ),
@@ -186,7 +186,7 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
                 ],
               ),
             );
-            },
+          },
         );
       }
       else {
@@ -202,11 +202,11 @@ class _AllVerifiedUsersScreenState extends State<AllVerifiedUsersScreen> {
       }
     }
     return Scaffold(
-      appBar: SimpleAppBar(title: "All Verified Users Accounts",),
+      appBar: SimpleAppBar(title: "All Blocked Sellers Accounts",),
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * .5,
-          child: displayVerifiedUsersDesign(),
+          child: displayBlockedUsersDesign(),
         ),
       ),
     );
