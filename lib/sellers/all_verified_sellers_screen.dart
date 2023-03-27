@@ -157,6 +157,47 @@ class _AllVerifiedSellersScreenState extends State<AllVerifiedSellersScreen> {
                     ),
                   ),
 
+
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                      ),
+                      icon: const Icon(
+                        Icons.person_pin_sharp,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        "Total Earnings".toUpperCase() + " € " +  allSellers!.docs[i].get("earnings").toString(),
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          letterSpacing: 3,
+                        ),
+                      ),
+                      onPressed: ()
+                      {
+
+                        SnackBar snackBar = SnackBar(
+                          content: Text(
+                            "Total Earnings".toUpperCase() + " € " +  allSellers!.docs[i].get("earnings").toString(),
+                            style: const TextStyle (
+                              fontSize: 36,
+                              color: Colors.white,
+                            ),
+                          ),
+                          backgroundColor: Colors.pink,
+                          duration: const Duration(seconds: 2),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+
+                      },
+                    ),
+                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: ElevatedButton.icon(
