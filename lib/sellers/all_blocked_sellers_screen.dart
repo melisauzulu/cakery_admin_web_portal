@@ -168,7 +168,7 @@ class _AllBlockedSellersScreenState extends State<AllBlockedSellersScreen> {
                         color: Colors.white,
                       ),
                       label: Text(
-                        "Total Earnings".toUpperCase() + " € " +  allSellers!.docs[i].get("earnings").toString(),
+                        " ",
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
@@ -180,7 +180,7 @@ class _AllBlockedSellersScreenState extends State<AllBlockedSellersScreen> {
 
                         SnackBar snackBar = SnackBar(
                           content: Text(
-                            "Total Earnings".toUpperCase() + " € " +  allSellers!.docs[i].get("earnings").toString(),
+                            " ",
                             style: const TextStyle (
                               fontSize: 36,
                               color: Colors.white,
