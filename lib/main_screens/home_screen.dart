@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen>
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            //videoda const BoxDecoration ekledi ama ben ekleyince hata veriyor çözemedim
             gradient: LinearGradient(
               colors:
               [

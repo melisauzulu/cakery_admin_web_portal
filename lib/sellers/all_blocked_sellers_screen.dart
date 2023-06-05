@@ -168,7 +168,7 @@ class _AllBlockedSellersScreenState extends State<AllBlockedSellersScreen> {
                         color: Colors.white,
                       ),
                       label: Text(
-                        " ",
+                        "Seller ",
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,

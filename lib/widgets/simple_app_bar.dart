@@ -33,7 +33,6 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget{
             tileMode: TileMode.clamp, ),
         ),
       ) ,
-
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios, color: Colors.white,),
         onPressed: (){
@@ -45,7 +44,6 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget{
 
       title: Text(
 
-        // sellerın ismini top bar kısımına yazdırıyoruz
         title!,
         style: const TextStyle(fontSize:25.0, letterSpacing: 3,color: Colors.white,),
       ),

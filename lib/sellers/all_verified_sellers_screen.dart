@@ -162,14 +162,14 @@ class _AllVerifiedSellersScreenState extends State<AllVerifiedSellersScreen> {
                     padding: const EdgeInsets.all(15.0),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
+                       backgroundColor: Colors.amber,
                       ),
                       icon: const Icon(
                         Icons.person_pin_sharp,
                         color: Colors.white,
                       ),
                       label: Text(
-                        " ",
+                        " Seller ",
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
@@ -181,7 +181,7 @@ class _AllVerifiedSellersScreenState extends State<AllVerifiedSellersScreen> {
 
                         SnackBar snackBar = SnackBar(
                           content: Text(
-                            " ",
+                            "  ",
                             style: const TextStyle (
                               fontSize: 36,
                               color: Colors.white,

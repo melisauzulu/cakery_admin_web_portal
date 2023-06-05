@@ -128,7 +128,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: const TextStyle(fontSize: 16, color: Colors.black),
                     decoration: InputDecoration(
-                      //const koyunca input decorationa yine hata alıyorum
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
@@ -162,7 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     style: const TextStyle(fontSize: 16, color: Colors.black),
                     decoration: InputDecoration(
-                      //const koyunca input decorationa yine hata alıyorum
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
